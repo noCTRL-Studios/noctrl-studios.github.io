@@ -29,6 +29,7 @@ By embedding the chip into a physical container, you get a **smart product** tha
 - **Integration**: Inserted the NFC chip into the cavity for a snug fit.  
 - **Demo**: Scanned with a phone to trigger shop links and automations.
 
+
 <iframe width="560" height="315" 
 src="https://www.youtube.com/embed/W_GZG7wSQL8" 
 title="YouTube video player" frameborder="0" 

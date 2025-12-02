@@ -43,5 +43,6 @@ Interested in using this design?
 
 ## Closing
 This project shows how CAD modeling and 3D printing can evolve into smart, interactive products.  
-If you’re interested in licensing the model or purchasing prints, reach out via my [contact page](/contact).
+If you’re interested in licensing the model or purchasing prints, reach out via my email.
+📧 **Email:** [silashafeli@noctrlstudios.com](mailto:silashafeli@noctrlstudios.com)  
 

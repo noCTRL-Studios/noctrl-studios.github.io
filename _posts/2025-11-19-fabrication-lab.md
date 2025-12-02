@@ -51,3 +51,13 @@ I’m building a **fully containerized fabrication workflow** — from CAD model
 ---
 
 This lab is where digital design meets real-world fabrication — a quiet blend of code, hardware, and process that keeps evolving alongside my software stack.
+
+## 5 Years of My 3D Printing Lab
+
+<iframe width="560" height="315" 
+src="https://www.youtube.com/embed/-sjD4Fp9mOI" 
+title="YouTube video player" frameborder="0" 
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
+
+

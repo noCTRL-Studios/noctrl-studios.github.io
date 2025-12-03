@@ -58,7 +58,7 @@ It’s simple, cheap, and resilient — no cloud dependence, no recurring cost.
 ## Simple Management
 
 Rebooting or restarting services doesn’t require extra hardware like KVM switches or smart plugs.  
-With Unraid’s container interface, it’s literally a click: **restart** or **stop**.  
+With Unraid’s container interface, it’s literally a click: **restart** or **stop**. 
 
 No physical labor, no added cost — just one dashboard controlling the entire lab.  
 I can spin up, tear down, or update services in seconds without touching a single cable.

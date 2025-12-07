@@ -50,7 +50,7 @@ Under full load with three printers running and file shares active, CPU sits aro
 Since the machine never struggles, I also use it for light file hosting:
 
 - Company docs and design models live on an Unraid share  
-- Automatic backups replicate to my personal workstation (an old gaming rig with a GTX 970)  
+- Automatic backups replicate to my personal home server (an old gaming rig with a GTX 970)  
 - Once a month, that system syncs to an offline drive for cold storage  
 
 It’s simple, cheap, and resilient — no cloud dependence, no recurring cost.

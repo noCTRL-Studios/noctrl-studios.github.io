@@ -887,3 +887,30 @@ int main()
 ```
 
 It’s not the most complex game, but it proved something more important — the engine wasn’t just theoretical anymore. It could actually ship something playable.
+
+## Vulkan and the End of the Engine
+
+After building *Pac-Man* and taking an introductory graphics course, I decided to take a serious step deeper into rendering and attempt a Vulkan renderer for the engine. At the time, this felt like the natural next challenge.
+
+Over the following years, as my skills grew—and after watching numerous GDC talks—I started to see the engine more clearly for what it was: a learning project that had accumulated architectural issues and technical debt early on. Rather than continue battling those constraints, I made the deliberate decision to start fresh. I had no users to support and no investors to answer to; this work has always been about personal growth, learning, and exploration.
+
+To reset properly, I spun up a Vulkan test-bed project to focus purely on understanding the API and modern rendering fundamentals:
+ 
+[First Vulkan Renderer (experimental test bed)](https://github.com/Shafeli/First-Vulkan-Renderer)
+
+The code isn’t pretty, and it’s far from production-ready—but it works. Getting that first renderer online was the confirmation I needed to move on.
+
+At that point, I officially abandoned the Brokkr engine and began designing my next project: **Valkara**, a 3D Vulkan-based research engine focused on clean architecture, modular systems, and low-level performance fundamentals.
+
+The plan for Valkara is intentionally incremental:
+- Core systems and structured logging
+- A multithreaded job system and thread pool
+- Rendering and resource management built on Vulkan
+
+Early prototypes include:
+
+[Job System Prototype (experimental test bed)](https://github.com/Shafeli/Valkara_JobSystem)
+
+[Immediate Logging Prototype (experimental test bed)](https://github.com/Shafeli/ImmediateLoggingProtoType)
+
+Longer-term, I still intend to support scripting in the new engine but this time with intention and purpose, not just to “have scripting.” For now, the focus is on deep research into low-level systems, threading, and engine architecture—and that research is off to a strong start.

@@ -14,64 +14,71 @@ render_with_liquid: false
 > 💡 **Active Development:**  
 > Follow progress and commits on the [GameEvents Dev branch](https://github.com/noCTRL-Studios/com.noctrl.game-events/tree/Dev).
 
-Sometimes inspiration comes from weird corners. I was watching a documentary about cracking the Enigma codes when something clicked — the Allies didn’t just break messages; they analyzed the metadata around them: who sent what, how often, and from where. They could learn a ton without ever reading the contents.
+Sometimes inspiration comes from weird corners.  
+I was watching a documentary about cracking the Enigma codes when something clicked — the Allies didn’t just break messages; they analyzed the *metadata* around them: who sent what, how often, and from where. They learned a ton without ever reading the contents.
 
-That idea stuck with me right after releasing the first version of GameEvents. I started wondering: what if developers could do the same thing with their events?
-Not reading the data inside — just observing how often systems talk to each other and how they behave during play.
+That stuck with me right after releasing the first version of **GameEvents**.  
+I wondered — what if developers could do the same with their event systems?  
+Not reading the payloads — just observing *how* systems talk to each other during play.
 
-That curiosity turned into the GameEvents Developer Metrics system.
+That curiosity turned into the **GameEvents Developer Metrics** system.
 
-## Why Build Metrics at All?
 
-I wanted a way for developers to see what their systems were doing in real time — how events actually moved through their project.
-The goals were simple:
+---
 
-Run automatically, no setup or boilerplate.
 
-Visualize event activity without touching gameplay code.
+## Why Build Metrics?
 
-Provide insight for debugging, performance, and design analysis.
+I wanted developers to *see* what their systems were doing in real time — how events actually moved through their project.
 
-So I focused on tracking a few key things:
+**Goals:**
+- Run automatically, no boilerplate.
+- Visualize event activity without touching gameplay code.
+- Provide insight for debugging, performance, and design analysis.
 
-When each event fires
-
-How many listeners were active at that moment
-
-Total invocation counts
-
-When listeners registered and unregistered
+So I focused on tracking:
+- When each event fires  
+- How many listeners are active  
+- Total invocation counts  
+- When listeners register/unregister  
 
 All without changing how people use the package.
 
 
+---
+
 ## Lessons from Building It
 
-Digging into this surfaced some interesting corners of Unity’s editor behavior.
+### 1. Play Mode Callbacks
+`EditorApplication.playModeStateChanged` turned out to be the cleanest way to detect session boundaries.  
+That callback is gold — it fires when entering or exiting Play Mode, perfect for knowing when to start and stop data collection.
 
-Playmode callbacks:
-Unity’s EditorApplication.playModeStateChanged turned out to be the cleanest way to detect session boundaries. That callback is gold — it fires when entering or exiting Play Mode, which made it perfect for knowing when to start and stop data collection.
+### 2. Editor-Only Singletons
+Keeping a persistent editor-only singleton for metrics was trickier than expected.  
+It has to live in the editor domain, survive domain reloads, and stay safely referenced during Play Mode.  
+I wrapped it in preprocessor macros so the runtime version compiles cleanly — though I can already see future footguns if something references it after unload.
 
-Editor-only singletons:
-Keeping a persistent editor-only singleton for metrics was trickier than expected. It has to live in the Editor domain but still survive domain reloads and be safely referenced during Play Mode. I ended up wrapping it with preprocessor macros so the runtime version compiles cleanly. I can already see future footguns if something references it while the editor object’s been unloaded.
-
-Writable cache paths:
-Git-based Unity packages are read-only, which means you can’t store session data in the package folder.
-The workaround: write to the Library directory — Unity’s intended scratch space.
+### 3. Writable Cache Paths
+Git-based Unity packages are read-only, so you can’t store session data inside the package.  
+The fix: write to the `Library` directory — Unity’s scratch space.
 
 ```c#
     string path = Path.Combine(Application.dataPath, "../Library/<Cache_Folder>");
 ```
-That path is guaranteed writable and keeps metrics local per project.
+That path is always writable and keeps metrics local per project.
+
+---
 
 
-## What It Looks Like So Far
+## What It Looks Like
 
-The current editor dashboard exposes two simple control groups:
+The current **Editor Dashboard** exposes two control groups:
 
-Event Metric Controls — for clearing, viewing, or exporting session data
+- **Event Metric Controls** — clear, view, or export session data  
+- **Game Event Controls** — create and monitor active events  
 
-Game Event Controls — for creating and monitoring active events
+Right now, metrics export to JSON whenever Unity disables objects.  
+That works, but I’d rather serialize when exiting Play Mode — next step is moving that logic into the editor callbacks.
 
 Here’s a look at the early build of the dashboard UI:
 
@@ -125,25 +132,27 @@ The output looks like this:
 
 
 ```
+
 It’s basic, but already enough to start seeing patterns in how events flow.
+
+---
 
 ## Next Steps
 
-There’s a lot of room to grow from here. My short list:
+Short-term plans:
+- Visualize event activity in real time (timeline graphs or heatmaps)  
+- Track listener lifetime more accurately (domain reloads are messy)  
+- Handle Play Mode boundaries cleanly (finalize once per session)
 
-Visualize event activity in real time
-(think timeline graphs or heatmaps per event)
+Longer term:
+- Aggregate session data to reveal which systems communicate most  
+- Detect “dead” events that never fire 
 
-Track listener lifetime accurately
-Domain reloads and prefab listeners are messy edge cases.
-
-Handle Play Mode boundaries cleanly
-Data should finalize only once per session.
-
-Later on, I’d like to experiment with aggregated session data — maybe show which systems communicate most, or even detect “dead” events that never fire.
+---
 
 ## Final Thoughts
 
-What started as curiosity turned into one of the most surprisingly useful debugging tools I’ve built. Just like the Enigma analysts learned from message patterns, I’m realizing how much you can learn from how a Unity project talks to itself.
+What started as curiosity turned into one of the most unexpectedly useful debugging tools I’ve built.  
+Just like the Enigma analysts learned from message patterns, I’m realizing how much you can learn from how a Unity project talks to itself.
 
-GameEvents Developer Metrics is still early, but it’s already reshaping how I think about visibility in event-driven systems — not just in Unity, but across everything I build.
+**GameEvents Developer Metrics** is still early, but it’s already reshaping how I think about visibility in event-driven systems — not just in Unity, but across everything I build.

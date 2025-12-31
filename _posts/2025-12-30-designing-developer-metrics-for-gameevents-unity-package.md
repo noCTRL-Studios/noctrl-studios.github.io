@@ -75,7 +75,7 @@ Game Event Controls — for creating and monitoring active events
 
 Here’s a look at the early build of the dashboard UI:
 
-![Dashboard](assets/images/GameEvents_Dashboard_UI.png)
+![Dashboard](https://noctrl-studios.github.io/assets/images/GameEvents_Dashboard_UI.png)
 
 
 Right now, metrics are being collected and exported to JSON whenever Unity disables objects. That’s functional but not ideal — I want to serialize when exiting Play Mode instead. Moving that logic into the editor callbacks is next.
